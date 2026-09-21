@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="nb">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07162b">
+  <meta name="description" content="Bane NORs offisielle sanntidsskjermer for Jessheim og Oslo S.">
+  <title>Jessheim ↔ Oslo S · Bane NOR trafikkinformasjon</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="shell">
+    <section class="control-bar" aria-label="Velg informasjonsskjerm">
+      <div class="control-group">
+        <span class="control-label">Stasjon</span>
+        <div class="segmented" id="stationTabs">
+          <button class="segment is-active" type="button" data-station="JEH" aria-pressed="true">Jessheim</button>
+          <button class="segment" type="button" data-station="OSL" aria-pressed="false">Oslo S</button>
+        </div>
+      </div>
+      <div class="control-group">
+        <span class="control-label">Visning</span>
+        <div class="segmented" id="viewTabs">
+          <button class="segment is-active" type="button" data-view="departure" aria-pressed="true">Avganger</button>
+          <button class="segment" type="button" data-view="track" aria-pressed="false">Spor og vogner</button>
+        </div>
+      </div>
+      <label class="track-picker" id="trackPicker" hidden>
+        <span class="control-label">Spor</span>
+        <select id="trackSelect" aria-label="Velg spor"></select>
+      </label>
+      <button class="refresh" id="refresh" type="button"><span aria-hidden="true">↻</span> Last inn på nytt</button>
+    </section>
+
+    <section class="screen-card">
+      <div class="screen-frame">
+        <div class="loading" id="loading"><span></span> Kobler til Bane NOR …</div>
+        <iframe id="infoScreen" title="Bane NOR avganger fra Jessheim" src="https://rtd.banenor.no/web_client/std?station=JEH&layout=landscape&content=departure&notice=yes&header=no&page=" allow="fullscreen"></iframe>
+      </div>
+    </section>
+
+    <footer>
+      <p>Avganger, forsinkelser, innstillinger, spor og togformasjon vises av Bane NORs egne sanntidsskjermer. Sporinformasjon kan endres på kort varsel.</p>
+    </footer>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
