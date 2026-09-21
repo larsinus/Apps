@@ -25,11 +25,9 @@ button, select, a { font: inherit; }
 .segment { min-height: 40px; padding: 0 15px; color: var(--muted); border: 0; border-radius: 9px; background: transparent; cursor: pointer; }
 .segment:hover { color: var(--ink); }
 .segment.is-active { color: #101722; background: var(--orange); font-weight: 800; box-shadow: 0 5px 16px rgba(255,177,47,.18); }
-.segment:focus-visible, .refresh:focus-visible, select:focus-visible, a:focus-visible { outline: 3px solid var(--cyan); outline-offset: 3px; }
+.segment:focus-visible, select:focus-visible, a:focus-visible { outline: 3px solid var(--cyan); outline-offset: 3px; }
 .track-picker[hidden] { display: none; }
 select { min-width: 110px; height: 48px; padding: 0 36px 0 13px; color: var(--ink); border: 1px solid var(--line); border-radius: 11px; background: var(--panel); cursor: pointer; }
-.refresh { display: inline-flex; align-items: center; gap: 8px; min-height: 48px; margin-left: auto; padding: 0 15px; color: var(--ink); border: 1px solid var(--line); border-radius: 11px; background: rgba(255,255,255,.045); cursor: pointer; }
-.refresh:hover { background: rgba(255,255,255,.09); }
 .screen-card { overflow: hidden; border: 1px solid var(--line); border-radius: 22px; background: linear-gradient(145deg, var(--panel-2), var(--panel)); box-shadow: 0 28px 80px rgba(0,0,0,.34); }
 .screen-frame { position: relative; width: 100%; aspect-ratio: 16 / 9; min-height: 360px; background: #020712; }
 .screen-frame iframe { position: relative; z-index: 2; width: 100%; height: 100%; border: 0; background: #020712; }
@@ -47,7 +45,6 @@ footer p { margin: 0; }
   .segment { padding: 0 10px; }
   .track-picker { flex: 1 1 auto; }
   select { width: 100%; }
-  .refresh { margin-left: 0; }
   .screen-frame { min-height: 0; aspect-ratio: 9 / 16; }
 }
 @media (prefers-reduced-motion: reduce) {

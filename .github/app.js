@@ -9,14 +9,13 @@ const els = {
   viewTabs: document.querySelector("#viewTabs"),
   trackPicker: document.querySelector("#trackPicker"),
   trackSelect: document.querySelector("#trackSelect"),
-  refresh: document.querySelector("#refresh"),
   screenFrame: document.querySelector(".screen-frame"),
   infoScreen: document.querySelector("#infoScreen")
 };
 
 const mobileLayout = window.matchMedia("(max-width: 720px)");
 
-function screenUrl(cacheBust = false) {
+function screenUrl() {
   const params = new URLSearchParams({
     station: state.station,
     layout: mobileLayout.matches ? "portrait" : "landscape",
@@ -26,7 +25,6 @@ function screenUrl(cacheBust = false) {
     page: ""
   });
   if (state.view === "track") params.set("track", state.track);
-  if (cacheBust) params.set("refresh", Date.now().toString());
   return `https://rtd.banenor.no/web_client/std?${params.toString()}`;
 }
 
@@ -44,11 +42,11 @@ function setActiveButtons(container, attribute, value) {
   });
 }
 
-function loadScreen(cacheBust = false) {
+function loadScreen() {
   populateTracks();
   const station = stations[state.station];
   const isTrack = state.view === "track";
-  const url = screenUrl(cacheBust);
+  const url = screenUrl();
   els.trackPicker.hidden = !isTrack;
   els.infoScreen.title = isTrack ? `Bane NOR sporvisning for spor ${state.track} på ${station.name}` : `Bane NOR avganger fra ${station.name}`;
   els.screenFrame.classList.remove("is-loaded");
@@ -77,7 +75,6 @@ els.trackSelect.addEventListener("change", () => {
   loadScreen();
 });
 
-els.refresh.addEventListener("click", () => loadScreen(true));
 mobileLayout.addEventListener("change", () => loadScreen());
 els.infoScreen.addEventListener("load", () => els.screenFrame.classList.add("is-loaded"));
 
