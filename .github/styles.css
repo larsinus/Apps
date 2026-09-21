@@ -48,10 +48,7 @@ footer p { margin: 0; }
   .track-picker { flex: 1 1 auto; }
   select { width: 100%; }
   .refresh { margin-left: 0; }
-  .screen-frame { min-height: 280px; aspect-ratio: 4 / 3; }
-}
-@media (max-width: 440px) {
-  .screen-frame { min-height: 245px; }
+  .screen-frame { min-height: 0; aspect-ratio: 9 / 16; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
