@@ -78,4 +78,4 @@ els.trackSelect.addEventListener("change", () => {
 mobileLayout.addEventListener("change", () => loadScreen());
 els.infoScreen.addEventListener("load", () => els.screenFrame.classList.add("is-loaded"));
 
-populateTracks();
+loadScreen();
