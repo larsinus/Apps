@@ -18,7 +18,7 @@ const mobileLayout = window.matchMedia("(max-width: 720px)");
 function screenUrl() {
   const params = new URLSearchParams({
     station: state.station,
-    layout: mobileLayout.matches ? "portrait" : "landscape",
+    layout: state.view === "track" ? "landscape" : (mobileLayout.matches ? "portrait" : "landscape"),
     content: state.view,
     notice: "yes",
     header: "no",
@@ -48,6 +48,7 @@ function loadScreen() {
   const isTrack = state.view === "track";
   const url = screenUrl();
   els.trackPicker.hidden = !isTrack;
+  els.screenFrame.classList.toggle("is-landscape", isTrack);
   els.infoScreen.title = isTrack ? `Bane NOR sporvisning for spor ${state.track} på ${station.name}` : `Bane NOR avganger fra ${station.name}`;
   els.screenFrame.classList.remove("is-loaded");
   els.infoScreen.src = url;

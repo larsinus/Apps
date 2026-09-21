@@ -46,6 +46,7 @@ footer p { margin: 0; }
   .track-picker { flex: 1 1 auto; }
   select { width: 100%; }
   .screen-frame { min-height: 0; aspect-ratio: 9 / 16; }
+  .screen-frame.is-landscape { aspect-ratio: 16 / 9; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
