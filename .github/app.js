@@ -14,10 +14,12 @@ const els = {
   infoScreen: document.querySelector("#infoScreen")
 };
 
+const mobileLayout = window.matchMedia("(max-width: 720px)");
+
 function screenUrl(cacheBust = false) {
   const params = new URLSearchParams({
     station: state.station,
-    layout: "landscape",
+    layout: mobileLayout.matches ? "portrait" : "landscape",
     content: state.view,
     notice: "yes",
     header: "no",
@@ -76,6 +78,7 @@ els.trackSelect.addEventListener("change", () => {
 });
 
 els.refresh.addEventListener("click", () => loadScreen(true));
+mobileLayout.addEventListener("change", () => loadScreen());
 els.infoScreen.addEventListener("load", () => els.screenFrame.classList.add("is-loaded"));
 
 populateTracks();
