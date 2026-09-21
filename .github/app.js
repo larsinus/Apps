@@ -1,6 +1,6 @@
 const stations = {
-  JEH: { name: "Jessheim", tracks: [1, 2] },
-  OSL: { name: "Oslo S", tracks: Array.from({ length: 19 }, (_, index) => index + 1) }
+  JEH: { name: "Jessheim", tracks: [1, 2], defaultTrack: 1 },
+  OSL: { name: "Oslo S", tracks: Array.from({ length: 19 }, (_, index) => index + 1), defaultTrack: 11 }
 };
 
 const state = { station: "JEH", view: "departure", track: "1" };
@@ -30,7 +30,7 @@ function screenUrl() {
 
 function populateTracks() {
   const tracks = stations[state.station].tracks;
-  if (!tracks.map(String).includes(state.track)) state.track = String(tracks[0]);
+  if (!tracks.map(String).includes(state.track)) state.track = String(stations[state.station].defaultTrack);
   els.trackSelect.innerHTML = tracks.map(track => `<option value="${track}" ${String(track) === state.track ? "selected" : ""}>Spor ${track}</option>`).join("");
 }
 
@@ -57,7 +57,7 @@ els.stationTabs.addEventListener("click", event => {
   const button = event.target.closest("button[data-station]");
   if (!button || button.dataset.station === state.station) return;
   state.station = button.dataset.station;
-  state.track = String(stations[state.station].tracks[0]);
+  state.track = String(stations[state.station].defaultTrack);
   setActiveButtons(els.stationTabs, "station", state.station);
   loadScreen();
 });
