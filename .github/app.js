@@ -9,20 +9,19 @@ const els = {
   viewTabs: document.querySelector("#viewTabs"),
   trackPicker: document.querySelector("#trackPicker"),
   trackSelect: document.querySelector("#trackSelect"),
-  screenFrame: document.querySelector(".screen-frame"),
-  infoScreen: document.querySelector("#infoScreen")
+  screenStack: document.querySelector("#screenStack")
 };
 
 const mobileLayout = window.matchMedia("(max-width: 720px)");
 
-function screenUrl() {
+function screenUrl(page = "") {
   const params = new URLSearchParams({
     station: state.station,
     layout: state.view === "track" ? "landscape" : (mobileLayout.matches ? "portrait" : "landscape"),
     content: state.view,
     notice: "yes",
     header: "no",
-    page: ""
+    page: String(page)
   });
   if (state.view === "track") params.set("track", state.track);
   return `https://rtd.banenor.no/web_client/std?${params.toString()}`;
@@ -42,16 +41,50 @@ function setActiveButtons(container, attribute, value) {
   });
 }
 
-function loadScreen() {
-  populateTracks();
+function createScreen(page, showPageLabel) {
   const station = stations[state.station];
   const isTrack = state.view === "track";
-  const url = screenUrl();
+  const card = document.createElement("article");
+  card.className = "screen-card";
+
+  if (showPageLabel) {
+    const label = document.createElement("div");
+    label.className = "screen-page-label";
+    label.innerHTML = `<span>Oslo S · avganger</span><strong>Side ${page}</strong>`;
+    card.append(label);
+  }
+
+  const frame = document.createElement("div");
+  frame.className = "screen-frame";
+  frame.classList.toggle("is-landscape", isTrack);
+
+  const loading = document.createElement("div");
+  loading.className = "loading";
+  loading.innerHTML = "<span></span> Kobler til Bane NOR …";
+
+  const iframe = document.createElement("iframe");
+  iframe.allow = "fullscreen";
+  iframe.title = isTrack
+    ? `Bane NOR sporvisning for spor ${state.track} på ${station.name}`
+    : `Bane NOR avganger fra ${station.name}${showPageLabel ? `, side ${page}` : ""}`;
+  iframe.addEventListener("load", () => frame.classList.add("is-loaded"));
+  iframe.src = screenUrl(page);
+
+  frame.append(loading, iframe);
+  card.append(frame);
+  return card;
+}
+
+function loadScreen() {
+  populateTracks();
+  const isTrack = state.view === "track";
+  const showThreePages = !isTrack && state.station === "OSL";
+  const pages = showThreePages ? [1, 2, 3] : [""];
+
   els.trackPicker.hidden = !isTrack;
-  els.screenFrame.classList.toggle("is-landscape", isTrack);
-  els.infoScreen.title = isTrack ? `Bane NOR sporvisning for spor ${state.track} på ${station.name}` : `Bane NOR avganger fra ${station.name}`;
-  els.screenFrame.classList.remove("is-loaded");
-  els.infoScreen.src = url;
+  const screens = document.createDocumentFragment();
+  pages.forEach(page => screens.append(createScreen(page, showThreePages)));
+  els.screenStack.replaceChildren(screens);
 }
 
 els.stationTabs.addEventListener("click", event => {
@@ -77,6 +110,5 @@ els.trackSelect.addEventListener("change", () => {
 });
 
 mobileLayout.addEventListener("change", () => loadScreen());
-els.infoScreen.addEventListener("load", () => els.screenFrame.classList.add("is-loaded"));
 
 loadScreen();
