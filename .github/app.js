@@ -78,12 +78,12 @@ function createScreen(page, showPageLabel) {
 function loadScreen() {
   populateTracks();
   const isTrack = state.view === "track";
-  const showThreePages = !isTrack && state.station === "OSL";
-  const pages = showThreePages ? [1, 2, 3] : [""];
+  const showAllDeparturePages = !isTrack && state.station === "OSL";
+  const pages = showAllDeparturePages ? [1, 2, 3, 4, 5, 6] : [""];
 
   els.trackPicker.hidden = !isTrack;
   const screens = document.createDocumentFragment();
-  pages.forEach(page => screens.append(createScreen(page, showThreePages)));
+  pages.forEach(page => screens.append(createScreen(page, showAllDeparturePages)));
   els.screenStack.replaceChildren(screens);
 }
 
