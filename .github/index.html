@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#07162b">
+  <meta name="theme-color" content="#061426">
   <meta name="description" content="Bane NORs offisielle sanntidsskjermer for Jessheim og Oslo S.">
   <title>Jessheim ↔ Oslo S · Bane NOR trafikkinformasjon</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <main class="shell">
-    <section class="control-bar" aria-label="Velg informasjonsskjerm">
+    <section class="control-bar" id="controlBar" aria-label="Velg informasjonsskjerm">
       <div class="control-group">
         <span class="control-label">Stasjon</span>
         <div class="segmented" id="stationTabs">
@@ -29,6 +29,7 @@
         <span class="control-label">Spor</span>
         <select id="trackSelect" aria-label="Velg spor"></select>
       </label>
+      <nav class="page-jump" id="pageJump" aria-label="Hopp til avgangsside" hidden></nav>
     </section>
 
     <section class="screen-stack" id="screenStack" aria-label="Bane NOR informasjonsskjermer"></section>
